@@ -6,6 +6,13 @@ app.use(express.json()); // Middleware para analisar JSON no corpo da requisiç�
 
 let products = []; // Lista temporária para armazenar os produtos
 
+// Middleware para registrar informações de cada chamada
+app.use((req, res, next) => {
+    console.log(`[${new Date().toLocaleString()}] ${req.method} ${req.url}`);
+    next(); // Chama o próximo middleware ou rota
+});
+
+
 // Rota POST para adicionar um novo produto
 app.post('/products', (req, res) => {
     const { name, price, description } = req.body;
@@ -93,3 +100,4 @@ app.delete('/products/:id', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
+z 
